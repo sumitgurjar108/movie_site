@@ -1,24 +1,25 @@
-import logo from './logo.svg';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
+import Navbar from './Navbar';
+import LandingPage from './LandingPage';
+import MovieList from './MovieList';
+import Footer from './Footer';
+import Contact from './Contact';  // Assuming you have a Contact component
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/movies" element={<MovieList />} />
+          <Route path="/contact" element={<Contact />} /> {/* Add this if you have a Contact page */}
+        </Routes>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
