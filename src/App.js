@@ -5,7 +5,7 @@ import Navbar from './Navbar';
 import LandingPage from './LandingPage';
 import MovieList from './MovieList';
 import Footer from './Footer';
-import Contact from './Contact';  // Assuming you have a Contact component
+import Contact from './Contact'; 
 
 function App() {
   return (
