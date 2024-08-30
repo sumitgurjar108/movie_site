@@ -1,5 +1,6 @@
 import React from 'react';
 import './LandingPage.css';
+import Img from './Img';
 
 const LandingPage = () => {
   return (
@@ -15,6 +16,7 @@ const LandingPage = () => {
           <button className="explore-btn">Explore Now</button>
         </div>
       </div>
+  <Img/>
     </div>
   );
 };
