@@ -1,26 +1,44 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import './App.css';
-import Navbar from './Navbar';
-import LandingPage from './LandingPage';
-import MovieList from './MovieList';
-import Footer from './Footer';
-import Contact from './Contact';  // Assuming you have a Contact component
+// src/App.js
 
-function App() {
+import React, { useState } from 'react';
+import Header from './Header';
+import Search from './Search';
+import WeatherDisplay from './WeatherDisplay';
+import { fetchWeatherData, fetchWeatherDataByCoords } from './WeatherApi';
+
+
+const App = () => {
+  const [weatherData, setWeatherData] = useState({ weather: null, forecast: [] });
+  const [error, setError] = useState('');
+
+  const handleSearch = async (city) => {
+    try {
+      setError('');
+      const data = await fetchWeatherData(city);
+      setWeatherData(data);
+    } catch (error) {
+      setError('Unable to fetch weather data. Please try again.');
+    }
+  };
+
+  const handleLocationSearch = async (latitude, longitude) => {
+    try {
+      setError('');
+      const data = await fetchWeatherDataByCoords(latitude, longitude);
+      setWeatherData(data);
+    } catch (error) {
+      setError('Unable to fetch weather data. Please try again.');
+    }
+  };
+
   return (
-    <Router>
-      <div className="App">
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/movies" element={<MovieList />} />
-          <Route path="/contact" element={<Contact />} /> {/* Add this if you have a Contact page */}
-        </Routes>
-        <Footer />
-      </div>
-    </Router>
+    <div className="weather-app">
+      <Header />
+      <Search onSearch={handleSearch} onLocate={handleLocationSearch} />
+      {error && <p className="error">{error}</p>}
+      <WeatherDisplay weather={weatherData.weather} forecast={weatherData.forecast} />
+    </div>
   );
-}
+};
 
 export default App;
